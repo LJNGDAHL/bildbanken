@@ -1,0 +1,187 @@
+@import "https://fonts.googleapis.com/css?family=Raleway:400,600|Lobster+Two:400i";
+@import "./normalize.css";
+/* -----------------------------------------------------------------------------
+START OF GLOBAL STYLES
+----------------------------------------------------------------------------- */
+
+html, body {
+  background-color: #f8f8f8;
+  box-sizing: border-box;
+  font-size: 62.5%; /* 1rem = 10px */
+  text-align: center;
+  width: 100%;
+}
+
+h2, h3, label, header > p {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-family: 'Lobster Two', cursive;
+  font-size: 70px;
+  font-size: 7rem;
+  font-weight: 400;
+  font-style: italic;
+  margin: 0;
+}
+
+h2 {
+  font-size: 24px;
+  font-size: 2.4rem;
+  margin: 0.5em;
+}
+
+p, input, button {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  font-size: 1.8rem;
+}
+
+.content {
+  margin: 0 auto;
+  width: 100vw;
+}
+
+@media screen and (min-width: 751px) {
+
+  html, body {
+    background-attachment: fixed;
+    background-image: url(../images/background-cover.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  h1 {
+    font-size: 90px;
+    font-size: 9rem;
+  }
+
+  .content {
+    width: 60vw;
+    margin: 10vh auto;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+END OF RESET AND GLOBAL STYLES
+----------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+HEADER
+----------------------------------------------------------------------------- */
+
+header {
+  margin-top: 5vh;
+  padding: 5em 5em 0;
+}
+
+header > p {
+  font-size: 22px;
+  font-size: 2.2rem;
+}
+
+@media screen and (min-width: 751px) {
+  header {
+    color: #fff;
+  }
+
+  header > p {
+    margin: 0.4em;
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+END OF HEADER
+----------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+START OF LOGIN AND REGISTER PAGE
+----------------------------------------------------------------------------- */
+
+.login, .register {
+  background-color: #f8f8f8;
+  border-radius: 1px;
+  margin: 0 auto 10vh;
+  max-width: 750px;
+  padding: 3em;
+}
+
+/* Button and input fields starts here. ------------------------------------ */
+
+.input-wrapper {
+  background-color: #fff;
+  border: 1px solid #efefef;
+  color: #c3c3c3;
+  height: 60px;
+  height: 6rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+/* Completely remove from the flow but leave available to screen readers. */
+label {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+input, button {
+  border: 0px solid;
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+}
+
+input {
+  background-color: transparent;
+  height: 6rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input:focus {
+  border: 3px solid #47c9d3;
+}
+
+button {
+  background-color: #47c9d3;
+  box-shadow: 1px 2px 2px #e1dede;
+  color: #fff;
+  height: 60px;
+  height: 6rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #51dde7;
+}
+
+button:active {
+  transform: translateY(5px);
+}
+/* Button and input ends here. ---------------------------------------------- */
+
+.login p, .register p {
+  margin-top: 1em;
+} /* This styles the paragraph after main button. */
+
+a {
+  color: #47c9d3;
+  text-decoration: none;
+}
+
+/* -----------------------------------------------------------------------------
+END OF LOGIN AND REGISTER PAGE
+----------------------------------------------------------------------------- */
+
+.upload-image {
+  background-color: #f8f8f8;
+  margin-top: 3em;
+}
