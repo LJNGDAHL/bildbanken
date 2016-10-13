@@ -2,8 +2,8 @@
   include "header.php";
 ?>
 <header>
-  <h1>Selfiebanken</h1>
-  <p>Här kan du ladda upp bilder på dig själv. Tjänsten är gratis.</p>
+  <h1><a href="./index.php">Bildbanken</a></h1>
+  <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
 </header>
 <div class="content">
   <form method="post" action="#">
