@@ -7,8 +7,3 @@
   <title>Bildbanken</title>
   <link rel="stylesheet" href="./styles/main.css">
 </head>
-<body>
-  <?php
-    include "functions.php";
-
-  ?>

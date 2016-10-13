@@ -4,7 +4,7 @@
 START OF GLOBAL STYLES
 ----------------------------------------------------------------------------- */
 
-html, body {
+html {
   background-color: #f8f8f8;
   box-sizing: border-box;
   font-size: 62.5%; /* 1rem = 10px */
@@ -45,12 +45,14 @@ p, input, button {
 
 @media screen and (min-width: 751px) {
 
-  html, body {
+  body {
     background-attachment: fixed;
     background-image: url(../images/background-cover.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    width: 100%;
+    height: 100%;
   }
 
   h1 {
@@ -72,12 +74,11 @@ HEADER
 ----------------------------------------------------------------------------- */
 
 header {
-  margin-top: 5vh;
   padding: 5em 5em 0;
 }
 
 h1 > a {
-  color: #000;
+  color: #121619;;
 }
 
 header > p {
@@ -86,6 +87,7 @@ header > p {
 }
 
 @media screen and (min-width: 751px) {
+
   header {
     color: #fff;
   }
@@ -93,7 +95,6 @@ header > p {
   h1 > a {
     color: #fff;
   }
-
 
   header > p {
     margin: 0.4em;
@@ -111,7 +112,6 @@ START OF MAIN CONTENT
 .login, .register, .home {
   background-color: #f8f8f8;
   border-radius: 1px;
-  margin: 0 auto 10vh;
   max-width: 750px;
   padding: 3em;
 }
@@ -193,16 +193,18 @@ END OF MAIN CONTENT
 START OF HOME PAGE
 ----------------------------------------------------------------------------- */
 
-.upload-image {
-  background-color: #f8f8f8;
-  color: #000;
-  width: 100vw;
-  height: 100vw;
-}
+@media screen and (min-width: 751px) {
 
-.upload-image > header {
-  color: #000;
-  margin: 0;
+  .home h1 {
+    color: #121619;
+  }
+
+  .home {
+    background-image: none;
+    background-color: #f8f8f8;
+    color: #121619;
+    margin: 0 auto;
+  }
 }
 
 /* -----------------------------------------------------------------------------
