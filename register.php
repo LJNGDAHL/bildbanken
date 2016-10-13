@@ -26,13 +26,39 @@
           <label for="new-password">Lösenord</label>
           <input type="password" id="Lösenord" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord">
         </div>
-        <button type="submit">Registrera dig</button>
+        <button type="submit" name="submit">Registrera dig</button>
       </form>
+      <?php
+        if(isset($_POST["submit"])) {
+
+          if(
+          !empty($_POST["given-name"]) &&
+          !empty($_POST["family-name"]) &&
+          !empty($_POST["email"]) &&
+          !empty($_POST["new-password"])
+          ) {
+            // Tar bort html-taggar med hjälp av funktionen strip_tags.
+            $userGivenName = strip_tags($_POST["given-name"]);
+            $userFamilyName = strip_tags($_POST["family-name"]);
+            $userEmail = strip_tags($_POST["email"]);
+            $userPassword = strip_tags($_POST["new-password"]);
+
+            // Steg 1 Upprätta en databasanslutning.
+            $conn = new mysqli("localhost", "root", "", "bildbanken");
+
+            $query = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$userPassword', NULL)";
+
+            //Steg 3: Kör frågan mot databasen och gör en insättning.
+            mysqli_query($conn, $query);
+            // echo mysqli_error($conn);
+            echo "<p>Du är nu registrerad.</p>";
+            }
+        }
+      ?>
       <p>Har du redan ett konto? <a href="./index.php" target="_self">Logga in</a></p>
     </div>
   </form>
 </div>
-
 <?php
   include "footer.php";
 ?>
