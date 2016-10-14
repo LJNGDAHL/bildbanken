@@ -5,24 +5,32 @@
 ?>
 
 
-<?php
-  // This checks if there is an existing cookie.
+
+  <!-- // This checks if there is an existing cookie.
   // Make sure to destroy session and cookies if logged out.
-  if (isset($_COOKIE["id"])): ?>
+  if (isset($_COOKIE["id"])): -->
     <body class="home">
     <div>
       <header>
         <h1>Hej!</h1>
       </header>
     <p>Du är nu inloggad.</p>
+    <?php
+    include_once "./config.php";
+    echo "$SALT_PREFIX$SALT_SUFFIX";
+    ?>
+
+
     </div>
 
     <pre><?php var_dump($_COOKIE); ?> </pre>
     <?php include_once "footer.php"; ?>
     </body>
 
-    <?php else: header("Location: index.php"); ?>
-  <?php endif ?>
+  <!-- <?php
+// else: header("Location: home.php"); ?>
+  <?php
+  // endif ?> -->
 
 <?php
 // unset($_COOKIE["username"]);

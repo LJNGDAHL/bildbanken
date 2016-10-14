@@ -52,13 +52,14 @@
             $userEmail = strip_tags($_POST["email"]);
             $userPassword = strip_tags($_POST["new-password"]);
 
-            include_once "./confiq.php";
+            include_once "./config.php";
             //This variable hashes and salts the password.
             $hashedPassword =
             hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
             include_once "database_connect.php";
 
+            // Kom ihåg att sätta tillbaka lösenord
             $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
 
             // Ask database and insert values.
@@ -69,6 +70,7 @@
             // TODO: Glöm inte att stänga alla dina uppkopplingar!
 
             header("Location: home.php");
+            // This sets the cookie for one hour.
             setcookie("id", $id, time() + (3600));
             }
           }

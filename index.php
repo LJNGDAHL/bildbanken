@@ -1,5 +1,5 @@
 <?php
-  include_once "header.php";
+  include_once "./header.php";
 ?>
 <body>
   <header>
@@ -15,7 +15,7 @@
           <label for="email">E-postadress</label>
         </div>
         <div class="input-wrapper">
-          <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="Test">
+          <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="test">
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
@@ -26,5 +26,5 @@
   </div>
 </body>
 <?php
-  include_once "footer.php";
+  include_once "./footer.php";
 ?>

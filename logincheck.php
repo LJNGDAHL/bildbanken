@@ -9,7 +9,7 @@
       $userEmail = mysqli_real_escape_string($conn, $_POST["email"]);
       $userPassword = mysqli_real_escape_string($conn, $_POST["password"]);
 
-      include_once "./confiq.php";
+      include_once "./config.php";
       //This variable hashes and salts the password.
       $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
       $stmt = $conn->stmt_init();
@@ -21,6 +21,7 @@
         $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
         $stmt->fetch();
 
+        // TODO: Kom ihåg att sätta tillbaka hash.
         if($id != 0 && $hashedPassword == $password && $userEmail == $email) {
             header("Location: home.php");
 
