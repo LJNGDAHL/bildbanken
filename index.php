@@ -1,5 +1,5 @@
 <?php
-  include "header.php";
+  include_once "header.php";
 ?>
 <body>
   <header>
@@ -15,16 +15,16 @@
           <label for="email">E-postadress</label>
         </div>
         <div class="input-wrapper">
-          <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="test">
+          <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="Test">
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
-        <?php include "logincheck.php"; ?>
+        <?php include_once "logincheck.php"; ?>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>
   </div>
 </body>
 <?php
-  include "footer.php";
+  include_once "footer.php";
 ?>

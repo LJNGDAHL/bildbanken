@@ -1,5 +1,5 @@
 <?php
-  include "header.php";
+  include_once "header.php";
 ?>
 <body>
   <header>
@@ -8,7 +8,7 @@
   </header>
   <div class="content">
     <?php // TODO: Don't forget to add an action. ?>
-    <form method="post" action="#">
+    <form method="post" action="">
       <div class="register">
       <h2>Registrera dig</h2>
         <form>
@@ -31,34 +31,45 @@
           <button type="submit" name="submit">Registrera dig</button>
         </form>
         <?php
-          if(isset($_POST["submit"])) {
+          if (isset($_POST["submit"])) {
             $allRequiredFilled = true;
             $requiredFields = array("given-name", "family-name", "email", "new-password");
 
             // Checks that all required fields are filled.
-            for($i = 0; $i<count($requiredFields); $i++) {
-              if($_POST[$requiredFields[$i]] == NULL) {
+            for ($i = 0; $i < count($requiredFields); $i++) {
+              $value = $_POST[$requiredFields[$i]];
+
+              if ($value == NULL || trim($value) == "") {
                 $allRequiredFilled = false;
                 break;
               }
             }
 
-          if($allRequiredFilled) {
+          if ($allRequiredFilled) {
             // Remove html tags.
             $userGivenName = strip_tags($_POST["given-name"]);
             $userFamilyName = strip_tags($_POST["family-name"]);
             $userEmail = strip_tags($_POST["email"]);
             $userPassword = strip_tags($_POST["new-password"]);
 
-            // Step 1. Connect to database.
-            $conn = new mysqli("localhost", "root", "", "bildbanken");
+            include_once "./confiq.php";
+            //This variable hashes and salts the password.
+            $hashedPassword =
+            hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
-            $query = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$userPassword', NULL)";
+            include_once "database_connect.php";
 
-            //Step 3: Ask database and insert values.
-            mysqli_query($conn, $query);
+            $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
 
-            echo "<p>Du är nu registrerad.</p>";
+            // Ask database and insert values.
+            mysqli_query($conn, $addNewUser);
+
+            // Close connection.
+            $conn->close();
+            // TODO: Glöm inte att stänga alla dina uppkopplingar!
+
+            header("Location: home.php");
+            setcookie("id", $id, time() + (3600));
             }
           }
         ?>
@@ -68,5 +79,5 @@
   </div>
 </body>
 <?php
-  include "footer.php";
+  include_once "footer.php";
 ?>
