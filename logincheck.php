@@ -21,26 +21,28 @@
         $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
         $stmt->fetch();
 
+        // Check where to place these.
+        $stmt->close();
+        $conn->close();
+
         if($id != 0 && $hashedPassword == $password && $userEmail == $email) {
-            header("Location: home.php");
+
+            header("Location: dashboard.php");
 
             // // Sets a cookie for one hour.
-            // setcookie("email", hash("ripemd128", $email), time() + (3600));
-            setcookie("email", $email, time() + (3600));
-          }
+            setcookie("email", $userEmail, time() + (3600));
+        }
+
         else {
           // TODO: Lägg till olika scenarier, om e-postadress inte finns etc.
-            header("Location: login.php");
+            header("Location: login_retry.php");
         }
       } // This close the $checkEmail statement.
-
+      
       else {
         // Denna använder du för att få meddelande om fel.
         echo mysqli_stmt_error($stmt);
       }
-
-      $stmt->close();
-      $conn->close();
     } // This close the check of email and password are filled.
   }
 ?>

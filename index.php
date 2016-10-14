@@ -7,7 +7,7 @@
     <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
   </header>
   <div class="content">
-    <form method="POST" action="./login.php">
+    <form method="POST" action="">
       <div class="login">
         <h2>Logga in</h2>
         <div class="input-wrapper">
@@ -19,7 +19,7 @@
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
-        <?php include "logincheck.php"; ?>
+        <?php include "./logincheck.php"; ?>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>

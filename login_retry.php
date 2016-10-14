@@ -6,7 +6,7 @@
     <h1><a href="./index.php">Ooops, något blev fel...</a></h1>
   </header>
   <div class="content">
-    <form method="POST" action="./login.php">
+    <form method="POST" action="./login_retry.php">
       <div class="login">
         <h2>Logga in</h2>
         <p>Du angav fel e-postadress och/eller lösenord.</p>
@@ -19,12 +19,12 @@
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
-        <?php include "logincheck.php"; ?>
+        <?php include "./logincheck.php"; ?>
         <p>Har du inget konto? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>
   </div>
 </body>
 <?php
-  include "footer.php";
+  include "./footer.php";
 ?>

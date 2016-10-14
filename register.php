@@ -1,5 +1,5 @@
 <?php
-  include "header.php";
+  include "./header.php";
 ?>
 <body>
   <header>
@@ -7,7 +7,7 @@
     <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
   </header>
   <div class="content">
-    <?php // TODO: Don't forget to add an action. ?>
+    <!-- TODO: Don't forget to add an action. -->
     <form method="post" action="">
       <div class="register">
       <h2>Registrera dig</h2>
@@ -52,10 +52,11 @@
             $userEmail = strip_tags($_POST["email"]);
             $userPassword = strip_tags($_POST["new-password"]);
 
+            // Config stores the passwords.
             include "./config.php";
+
             //This variable hashes and salts the password.
-            $hashedPassword =
-            hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
+            $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
             include "database_connect.php";
 
@@ -63,12 +64,12 @@
 
             // Ask database and insert values.
             mysqli_query($conn, $addNewUser);
-            
+
             // Close connection.
             $conn->close();
             // TODO: Close all connections.
 
-            header("Location: home.php");
+            header("Location: dashboard.php");
             // This sets the cookie for one hour.
             setcookie("email", $userEmail, time() + (3600));
             }
