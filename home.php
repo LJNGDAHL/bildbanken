@@ -1,37 +1,31 @@
 <?php
-  include_once "./header.php";
-  include_once "./database_connect.php";
-  include_once "./config.php";
+  include "./header.php";
+  include "./database_connect.php";
+  include "./config.php";
 ?>
-
-
-
-  <!-- // This checks if there is an existing cookie.
+<?php
+  // This checks if there is an existing cookie.
   // Make sure to destroy session and cookies if logged out.
-  if (isset($_COOKIE["id"])): -->
+  if (isset($_COOKIE["email"])): ?>
     <body class="home">
-    <div>
+      <div>
       <header>
         <h1>Hej!</h1>
       </header>
-    <p>Du är nu inloggad.</p>
-    <?php
-    include_once "./config.php";
-    echo "$SALT_PREFIX$SALT_SUFFIX";
-    ?>
-
-
-    </div>
-
-    <pre><?php var_dump($_COOKIE); ?> </pre>
-    <?php include_once "footer.php"; ?>
+      </header>
+        <p>Du är nu inloggad.</p>
+        <pre><?php var_dump($_COOKIE); ?> </pre>
+      </div>
+      <?php include_once "footer.php";
+      // TODO: Check all "include".
+      ?>
     </body>
 
-  <!-- <?php
-// else: header("Location: home.php"); ?>
-  <?php
-  // endif ?> -->
 
+  <?php else:
+    header("Location: index.php");
+  ?>
+  <?php endif ?>
 <?php
 // unset($_COOKIE["username"]);
 // var_dump($_COOKIE);

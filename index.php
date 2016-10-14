@@ -1,5 +1,5 @@
 <?php
-  include_once "./header.php";
+  include "./header.php";
 ?>
 <body>
   <header>
@@ -19,12 +19,12 @@
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
-        <?php include_once "logincheck.php"; ?>
+        <?php include "logincheck.php"; ?>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>
   </div>
 </body>
 <?php
-  include_once "./footer.php";
+  include "./footer.php";
 ?>

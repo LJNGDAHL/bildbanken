@@ -1,5 +1,5 @@
 <?php
-  include_once "header.php";
+  include "header.php";
 ?>
 <body>
   <header>
@@ -52,26 +52,25 @@
             $userEmail = strip_tags($_POST["email"]);
             $userPassword = strip_tags($_POST["new-password"]);
 
-            include_once "./config.php";
+            include "./config.php";
             //This variable hashes and salts the password.
             $hashedPassword =
             hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
-            include_once "database_connect.php";
+            include "database_connect.php";
 
-            // Kom ihåg att sätta tillbaka lösenord
             $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
 
             // Ask database and insert values.
             mysqli_query($conn, $addNewUser);
-
+            
             // Close connection.
             $conn->close();
-            // TODO: Glöm inte att stänga alla dina uppkopplingar!
+            // TODO: Close all connections.
 
             header("Location: home.php");
             // This sets the cookie for one hour.
-            setcookie("id", $id, time() + (3600));
+            setcookie("email", $userEmail, time() + (3600));
             }
           }
         ?>
@@ -81,5 +80,5 @@
   </div>
 </body>
 <?php
-  include_once "footer.php";
+  include "footer.php";
 ?>
