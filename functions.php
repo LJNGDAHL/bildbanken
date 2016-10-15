@@ -1,14 +1,11 @@
 <?php
-
-
-/** TODO: Kolla förklaringen.
-* The function creates variables from session data.
-*
-* @param array $givenName  Takes the given name and inserts it into a variable.
-* @param array $familyName Takes the family name and inserts it into a variable.
-* @param array $email      Takes the email and inserts it into a variable.
-* @param array $selfie     Takes the URL to the selfie and inserts it into a *                          variable. Is NULL by default.
-**/
+/**
+ * The function stores variables in the session.
+ * @param  string $givenName  The user's given name.
+ * @param  string $familyName The user's family name.
+ * @param  string $email      The user's email.
+ * @param  string $selfie     The user's uploaded selfie. Empty by default.
+ */
 function storeUserInSession($givenName, $familyName, $email, $selfie = NULL) {
   $_SESSION["given-name"] = $givenName;
   $_SESSION["family-name"] = $familyName;

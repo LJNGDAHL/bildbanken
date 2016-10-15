@@ -11,6 +11,7 @@
     <form method="POST">
       <div class="login">
         <h2>Logga in</h2>
+        <?php if(!empty($errorMessage)) { echo $errorMessage; } ?>
         <div class="input-wrapper">
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" value="katt@test.com">
           <label for="email">E-postadress</label>
@@ -19,7 +20,6 @@
           <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="test">
           <label for="password">Lösenord</label>
         </div>
-        <pre><h2><?php var_dump($_SESSION); ?></h2></pre>
         <button type="submit" name="submit">Logga in</button>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>

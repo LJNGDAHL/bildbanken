@@ -5,7 +5,7 @@ include "./functions.php";
 
   if(isset($_SESSION["user-email"])) {
 
-    header("Location: dashboard.php");
+    header("Location: ./dashboard.php");
 
   } elseif(isset($_POST["submit"])) {
 
@@ -22,8 +22,6 @@ include "./functions.php";
       $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
       $stmt = $conn->stmt_init();
-
-      // TODO: Kom ihåg att döda uppkopplingen om användaren inte finns.
       $checkEmail = "SELECT * FROM users WHERE email = '{$userEmail}'";
 
       if($stmt->prepare($checkEmail)) {
@@ -31,16 +29,18 @@ include "./functions.php";
         $stmt->execute();
         $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
         $stmt->fetch();
+        $result = $stmt->get_result();
+        // TODO: Create an error message if the user doesn't exist.
         $stmt->close();
         $conn->close();
 
         if ($hashedPassword == $password) {
-          header("Location: dashboard.php");
+          header("Location: ./dashboard.php");
 
           storeUserInSession($givenName, $familyName, $email, $selfie);
 
         } else {
-          header("Location: login_retry.php");
+          $errorMessage = "Du har angivit fel lösenord och/eller e-postadress. Försök igen.";
         }
       } else {
         // Prints error message.

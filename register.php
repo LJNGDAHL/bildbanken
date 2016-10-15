@@ -40,21 +40,37 @@
 
     include "database_connect.php";
 
-    $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
+    $stmt = $conn->stmt_init();
+    $query = "SELECT email FROM users WHERE email='{$userEmail}'";
+    $message = "";
 
-    // Ask database and insert values.
-    mysqli_query($conn, $addNewUser);
-
-    // Close connection.
-    $conn->close();
-    // TODO: Close all connections.
-
-    storeUserInSession($userGivenName, $userFamilyName, $userEmail);
-
-    // Redirect user to dashboard.php after registration is completed.
-    header("Location: dashboard.php");
+    if($stmt->prepare($query)) {
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $stmt->close();
+    } else {
+      $message = "Något gick galet, försök igen.";
     }
-  }
+
+    if($result->num_rows) {
+      $message = "E-postadressen är redan registrerad, försök igen.";
+    } else {
+      $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
+
+      // Ask database and insert values.
+      mysqli_query($conn, $addNewUser);
+
+      // Close connection.
+      $conn->close();
+      // TODO: Close all connections.
+
+      storeUserInSession($userGivenName, $userFamilyName, $userEmail);
+
+      // Redirect user to dashboard.php after registration is completed.
+      header("Location: dashboard.php");
+      } //  This closes the else statement that adds a new user to the database.
+    }   //  This closes the if statement that checks if ($allRequiredFilled).
+  }     //  This closes the statement that checks if there is submitted info.
 ?>
 <body>
   <header>
@@ -65,6 +81,7 @@
     <form method="POST">
       <div class="register">
       <h2>Registrera dig</h2>
+      <?php if(!empty($message)) { echo $message; } ?>
         <form>
           <div class="input-wrapper">
             <label for="given-name">Förnamn</label>
