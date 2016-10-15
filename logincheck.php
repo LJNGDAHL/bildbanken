@@ -1,6 +1,13 @@
 <?php
-// TODO: Kolla på detta, det är nog inte rätt.
-  if(isset($_POST["submit"])) {
+include "./config.php";
+include "./session.php";
+include "./functions.php";
+
+  if(isset($_SESSION["user-email"])) {
+
+    header("Location: dashboard.php");
+
+  } elseif(isset($_POST["submit"])) {
 
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {
 
@@ -9,10 +16,14 @@
       $userEmail = mysqli_real_escape_string($conn, $_POST["email"]);
       $userPassword = mysqli_real_escape_string($conn, $_POST["password"]);
 
-      include "./config.php";
-      //This variable hashes and salts the password.
+      /*  This variable hashes and salts the password.
+       *  The variables $SALT_PREFIX and $SALT_SUFFIX
+       *  are found in config.php. */
       $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
+
       $stmt = $conn->stmt_init();
+
+      // TODO: Kom ihåg att döda uppkopplingen om användaren inte finns.
       $checkEmail = "SELECT * FROM users WHERE email = '{$userEmail}'";
 
       if($stmt->prepare($checkEmail)) {
@@ -20,29 +31,21 @@
         $stmt->execute();
         $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
         $stmt->fetch();
-
-        // Check where to place these.
         $stmt->close();
         $conn->close();
 
-        if($id != 0 && $hashedPassword == $password && $userEmail == $email) {
+        if ($hashedPassword == $password) {
+          header("Location: dashboard.php");
 
-            header("Location: dashboard.php");
+          storeUserInSession($givenName, $familyName, $email, $selfie);
 
-            // // Sets a cookie for one hour.
-            setcookie("email", $userEmail, time() + (3600));
+        } else {
+          header("Location: login_retry.php");
         }
-
-        else {
-          // TODO: Lägg till olika scenarier, om e-postadress inte finns etc.
-            header("Location: login_retry.php");
-        }
-      } // This close the $checkEmail statement.
-      
-      else {
-        // Denna använder du för att få meddelande om fel.
+      } else {
+        // Prints error message.
         echo mysqli_stmt_error($stmt);
       }
-    } // This close the check of email and password are filled.
+    } // This close the check if email and password are filled.
   }
 ?>

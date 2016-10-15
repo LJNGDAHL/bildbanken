@@ -1,4 +1,5 @@
 <?php
+  include "./logincheck.php";
   include "./header.php";
 ?>
 <body>
@@ -7,7 +8,7 @@
     <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
   </header>
   <div class="content">
-    <form method="POST" action="">
+    <form method="POST">
       <div class="login">
         <h2>Logga in</h2>
         <div class="input-wrapper">
@@ -18,8 +19,8 @@
           <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="test">
           <label for="password">Lösenord</label>
         </div>
+        <pre><h2><?php var_dump($_SESSION); ?></h2></pre>
         <button type="submit" name="submit">Logga in</button>
-        <?php include "./logincheck.php"; ?>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>

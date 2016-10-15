@@ -6,7 +6,7 @@
     <h1><a href="./index.php">Ooops, något blev fel...</a></h1>
   </header>
   <div class="content">
-    <form method="POST" action="./login_retry.php">
+    <form method="POST">
       <div class="login">
         <h2>Logga in</h2>
         <p>Du angav fel e-postadress och/eller lösenord.</p>
