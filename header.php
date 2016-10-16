@@ -7,3 +7,4 @@
   <title>Bildbanken</title>
   <link rel="stylesheet" href="./styles/main.css">
 </head>
+<body>

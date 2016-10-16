@@ -42,18 +42,18 @@
 
     $stmt = $conn->stmt_init();
     $query = "SELECT email FROM users WHERE email='{$userEmail}'";
-    $message = "";
+    $errorMessage = "";
 
     if($stmt->prepare($query)) {
       $stmt->execute();
       $result = $stmt->get_result();
       $stmt->close();
     } else {
-      $message = "Något gick galet, försök igen.";
+      $errorMessage = "Något gick galet, försök igen.";
     }
 
     if($result->num_rows) {
-      $message = "E-postadressen är redan registrerad, försök igen.";
+      $errorMessage = "E-postadressen är redan registrerad, försök igen.";
     } else {
       $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
 
@@ -72,40 +72,36 @@
     }   //  This closes the if statement that checks if ($allRequiredFilled).
   }     //  This closes the statement that checks if there is submitted info.
 ?>
-<body>
+<div class="background-container">
   <header>
     <h1><a href="./index.php">Bildbanken</a></h1>
     <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
   </header>
   <div class="content">
-    <form method="POST">
-      <div class="register">
+    <div class="register">
       <h2>Registrera dig</h2>
-      <?php if(!empty($message)) { echo $message; } ?>
-        <form>
-          <div class="input-wrapper">
-            <label for="given-name">Förnamn</label>
-            <input type="text" id="given-name" name="given-name" autocomplete="given-name" placeholder="Förnamn" required>
-          </div>
-          <div class="input-wrapper">
-            <label for="family-name">Efternamn</label>
-            <input type="text" id="given-name" name="family-name" autocomplete="family-name" placeholder="Efternamn" required>
-          </div>
-          <div class="input-wrapper">
-            <label for="email">E-postadress</label>
-            <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" required>
-          </div>
-          <div class="input-wrapper">
-            <label for="new-password">Lösenord</label>
-            <input type="password" id="Lösenord" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord" required>
-          </div>
-          <button type="submit" name="submit">Registrera dig</button>
-        </form>
-        <p>Har du redan ett konto? <a href="./index.php" target="_self">Logga in</a></p>
-      </div>
-    </form>
-  </div>
-</body>
-<?php
-  include "footer.php";
-?>
+      <?php if(!empty($errorMessage)) { echo $errorMessage; } ?>
+      <form method="POST">
+        <div class="input-wrapper">
+          <label for="given-name">Förnamn</label>
+          <input type="text" id="given-name" name="given-name" autocomplete="given-name" placeholder="Förnamn" required>
+        </div>
+        <div class="input-wrapper">
+          <label for="family-name">Efternamn</label>
+          <input type="text" id="family-name" name="family-name" autocomplete="family-name" placeholder="Efternamn" required>
+        </div>
+        <div class="input-wrapper">
+          <label for="email">E-postadress</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" required>
+        </div>
+        <div class="input-wrapper">
+          <label for="new-password">Lösenord</label>
+          <input type="password" id="new-password" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord" required>
+        </div>
+        <button type="submit" name="submit">Registrera dig</button>
+      </form>
+      <p>Har du redan ett konto? <a href="./index.php" target="_self">Logga in</a></p>
+    </div>
+  </div> <!-- This closes the div with the class "content" -->
+</div> <!-- This closes the div with the class "background-container" -->
+<?php include "footer.php"; ?>

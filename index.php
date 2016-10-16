@@ -1,8 +1,8 @@
 <?php
-  include "./logincheck.php";
   include "./header.php";
+  include "./logincheck.php";
 ?>
-<body>
+<div class="background-container">
   <header>
     <h1><a href="./index.php">Bildbanken</a></h1>
     <p>Här kan du ladda upp selfies på dig själv. Tjänsten är gratis.</p>
@@ -17,15 +17,13 @@
           <label for="email">E-postadress</label>
         </div>
         <div class="input-wrapper">
-          <input type="password" id="password" name="password" autocomplete="password" placeholder="Lösenord" value="test">
+          <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Lösenord" value="test">
           <label for="password">Lösenord</label>
         </div>
         <button type="submit" name="submit">Logga in</button>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>
-  </div>
-</body>
-<?php
-  include "./footer.php";
-?>
+  </div> <!-- This closes the div with the class "content" -->
+</div> <!-- This closes the div with the class "background-container" -->
+<?php include "footer.php"; ?>
