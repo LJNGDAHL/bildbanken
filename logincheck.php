@@ -40,7 +40,7 @@ include "./functions.php";
           storeUserInSession($givenName, $familyName, $email, $selfie);
 
         } else {
-          $errorMessage = "Du har angivit fel lösenord och/eller e-postadress. Försök igen.";
+          $errorMessage = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
         }
       } else {
         // Prints error message.

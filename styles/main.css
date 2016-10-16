@@ -76,7 +76,7 @@ header {
 }
 
 h1 > a {
-  color: #121619;;
+  color: #202224;
 }
 
 header > p {
@@ -112,6 +112,11 @@ START OF MAIN CONTENT
   border-radius: 1px;
   max-width: 750px;
   padding: 3em;
+}
+
+.error-message {
+  color: #db5461;
+  font-family: 'Lobster Two', cursive;
 }
 
 /* Button and input fields starts here. ------------------------------------ */
@@ -194,13 +199,13 @@ START OF DASHBOARD PAGE
 @media screen and (min-width: 751px) {
 
   .dashboard h1 {
-    color: #121619;
+    color: #202224;
   }
 
   .dashboard {
     background-image: none;
     background-color: #f8f8f8;
-    color: #121619;
+    color: #202224;
     margin: 0 auto;
     width: 60vw;
   }

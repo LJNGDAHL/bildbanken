@@ -49,11 +49,11 @@
       $result = $stmt->get_result();
       $stmt->close();
     } else {
-      $errorMessage = "Något gick galet, försök igen.";
+      $errorMessage = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
     }
 
     if($result->num_rows) {
-      $errorMessage = "E-postadressen är redan registrerad, försök igen.";
+      $errorMessage = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
     } else {
       $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
 
@@ -80,7 +80,7 @@
   <div class="content">
     <div class="register">
       <h2>Registrera dig</h2>
-      <?php if(!empty($errorMessage)) { echo $errorMessage; } ?>
+      <?php if(!empty($errorMessage)) { echo "$errorMessage"; } ?>
       <form method="POST">
         <div class="input-wrapper">
           <label for="given-name">Förnamn</label>
