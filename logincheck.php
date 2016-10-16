@@ -1,17 +1,20 @@
 <?php
-include "./config.php";
-include "./session.php";
-include "./functions.php";
+include_once "./config.php";
+include_once "./session.php";
+include_once "./functions.php";
 
+  // Check if there is already an active session.
   if(isset($_SESSION["user-email"])) {
 
     header("Location: ./dashboard.php");
 
+  // Check if the user has pressed the submit button.
   } elseif(isset($_POST["submit"])) {
 
+    // Check if input fields for email and password are filled.
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {
 
-      include "database_connect.php";
+      include_once "database_connect.php";
 
       $userEmail = mysqli_real_escape_string($conn, $_POST["email"]);
       $userPassword = mysqli_real_escape_string($conn, $_POST["password"]);
@@ -29,8 +32,6 @@ include "./functions.php";
         $stmt->execute();
         $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
         $stmt->fetch();
-        $result = $stmt->get_result();
-        // TODO: Create an error message if the user doesn't exist.
         $stmt->close();
         $conn->close();
 
@@ -46,6 +47,6 @@ include "./functions.php";
         // Prints error message.
         echo mysqli_stmt_error($stmt);
       }
-    } // This close the check if email and password are filled.
-  }
+    } // Close the check if input fields for email and password are filled.
+  } // Close the check the user has pressed the submit button.
 ?>

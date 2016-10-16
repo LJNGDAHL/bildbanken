@@ -1,11 +1,18 @@
 <?php
-  include "./header.php";
-  include "./database_connect.php";
-  include "./config.php";
-  include "./session.php";
-?>
-<?php
-  // This checks if there is a current session active.
+  include_once "./header.php";
+  include_once "./database_connect.php";
+  include_once "./config.php";
+  include_once "./session.php";
+
+
+  // Destroy session if user logs out.
+  if(isset($_POST["submit"])) {
+    header("Location: ./index.php");
+    unset($_SESSION["userid"]);
+    session_destroy();
+  }
+
+  // Print content on dashboard.php if there is a current session active.
   if (isset($_SESSION["user-email"])): ?>
     <div class="dashboard">
       <header>
@@ -14,8 +21,8 @@
       <?php
       $stmt = $conn->stmt_init();
 
-      $currentUserEmail = $_SESSION["user-email"];
-      $query = "SELECT * FROM users WHERE email='{$currentUserEmail}'";
+      $currentUser = $_SESSION["user-email"];
+      $query = "SELECT * FROM users WHERE email='{$currentUser}'";
 
       if($stmt->prepare($query)) {
 
@@ -23,27 +30,22 @@
         $stmt->bind_result($id, $given_name, $family_name, $email, $password, $image);
 
         while (mysqli_stmt_fetch($stmt)) {
-          echo "<p>Inloggad användare: <br>$given_name $family_name</p>";
+          echo "<p>Hej $given_name $family_name!</p>";
         }
       }
       else {
-        // Prints error message.
+        // Print error message if something went wrong.
         echo mysqli_stmt_error($stmt);
       }
       $stmt->close();
       $conn->close();
       ?>
       <form method="POST">
-        <button type="submit" name="submit">Logout</button>
-        <?php
-        if(isset($_POST["submit"])) {
-          header("Location: ./index.php");
-          unset($_SESSION["userid"]);
-          session_destroy();
-        }
-        ?>
+        <button type="submit" name="submit">Logga ut</button>
       </form>
     </div> <!-- This closes the div with the class "dashboard" -->
-  <?php else: header("Location: ./index.php"); ?>
+  <?php // Redirect user to index.php if no session is active.
+  else: header("Location: ./index.php");
+  ?>
 <?php endif ?>
-<?php include "footer.php"; ?>
+<?php include_once "footer.php"; ?>

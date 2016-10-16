@@ -1,6 +1,6 @@
 <?php
-  include "./header.php";
-  include "./logincheck.php";
+  include_once "./header.php";
+  include_once "./logincheck.php";
 ?>
 <div class="background-container">
   <header>
@@ -26,4 +26,4 @@
     </form>
   </div> <!-- This closes the div with the class "content" -->
 </div> <!-- This closes the div with the class "background-container" -->
-<?php include "footer.php"; ?>
+<?php include_once "footer.php"; ?>

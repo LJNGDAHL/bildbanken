@@ -1,10 +1,10 @@
 <?php
-  include "./header.php";
-  include "./config.php";
-  include "./session.php";
-  include "./functions.php";
+  include_once "./header.php";
+  include_once "./config.php";
+  include_once "./session.php";
+  include_once "./functions.php";
 
-  // Checks if there is already an active session.
+  // Check if there is already an active session.
   if(isset($_SESSION["user-email"])) {
 
     header("Location: dashboard.php");
@@ -14,11 +14,10 @@
     $allRequiredFilled = true;
     $requiredFields = array("given-name", "family-name", "email", "new-password");
 
-    // Checks that all required fields are filled.
+    // Check if all required fields are filled.
     for ($i = 0; $i < count($requiredFields); $i++) {
       $value = $_POST[$requiredFields[$i]];
 
-      // KOlla om du kan använda empty.
       if (empty($value)) {
         $allRequiredFilled = false;
         break;
@@ -38,7 +37,7 @@
      *  are found in config.php. */
     $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
 
-    include "database_connect.php";
+    include_once "database_connect.php";
 
     $stmt = $conn->stmt_init();
     $query = "SELECT email FROM users WHERE email='{$userEmail}'";
@@ -62,15 +61,15 @@
 
       // Close connection.
       $conn->close();
-      // TODO: Close all connections.
 
       storeUserInSession($userGivenName, $userFamilyName, $userEmail);
 
       // Redirect user to dashboard.php after registration is completed.
       header("Location: dashboard.php");
-      } //  This closes the else statement that adds a new user to the database.
-    }   //  This closes the if statement that checks if ($allRequiredFilled).
-  }     //  This closes the statement that checks if there is submitted info.
+
+      } //  This close the else statement that adds a new user to the database.
+    }   //  This close the if statement that checks if ($allRequiredFilled).
+  }     //  This close the statement that checks if there is submitted info.
 ?>
 <div class="background-container">
   <header>
@@ -104,4 +103,4 @@
     </div>
   </div> <!-- This closes the div with the class "content" -->
 </div> <!-- This closes the div with the class "background-container" -->
-<?php include "footer.php"; ?>
+<?php include_once "footer.php"; ?>
