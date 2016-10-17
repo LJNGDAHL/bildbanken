@@ -157,6 +157,11 @@ input {
   appearance: none;
 }
 
+/*.choose-file {
+  background-color: #db5461;
+  text-align: center;
+}*/
+
 input:focus {
   border: 3px solid #47c9d3;
 }
@@ -173,6 +178,14 @@ button {
 
 button:hover {
   background-color: #51dde7;
+}
+
+.terracotta {
+  background-color: #53db97;
+}
+
+.terracotta:hover {
+  background-color: #60f2a9;
 }
 
 button:active {
@@ -195,6 +208,55 @@ END OF MAIN CONTENT
 /* -----------------------------------------------------------------------------
 START OF DASHBOARD PAGE
 ----------------------------------------------------------------------------- */
+
+.welcome-text {
+  background-color: #db5461;
+  line-height: 2.5rem;
+  width: 100%;
+}
+
+.welcome-text > p {
+  color: #FEFEFF;
+  font-family: 'Lobster Two', cursive;
+  font-size: 20px;
+  font-size: 2rem;
+  margin: 0;
+  padding: 2rem 0 0.2rem;
+}
+
+.dashboard > header {
+  margin-bottom: 2rem;
+}
+
+.selfie {
+  box-sizing: border-box;
+  border: 15px solid #db5461;
+  width: 100%;
+}
+
+.placeholder-selfie {
+  display: block;
+  background-color: #db5461;
+  height: 20vh;
+  width: 100%;
+}
+
+.placeholder-selfie > p {
+  box-sizing: border-box;
+  color: #fff;
+  font-family: 'Lobster Two', cursive;
+  font-size: 30px;
+  font-size: 3rem;
+  padding: 3rem;
+}
+
+.upload-message {
+  margin-bottom: 1em;
+}
+
+form {
+  margin-bottom: 1em;
+}
 
 @media screen and (min-width: 751px) {
 

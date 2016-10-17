@@ -1,8 +1,8 @@
 <?php
-  include_once "./header.php";
-  include_once "./config.php";
-  include_once "./session.php";
-  include_once "./functions.php";
+  include "./header.php";
+  include "./config.php";
+  include "./session.php";
+  include "./functions.php";
 
   // Check if there is already an active session.
   if(isset($_SESSION["user-email"])) {
@@ -11,64 +11,71 @@
 
   } elseif (isset($_POST["submit"])) {
 
-    $allRequiredFilled = true;
-    $requiredFields = array("given-name", "family-name", "email", "new-password");
+    $all_required_filled = true;
+    $required_fields = array("given-name", "family-name", "email", "new-password");
 
     // Check if all required fields are filled.
-    for ($i = 0; $i < count($requiredFields); $i++) {
-      $value = $_POST[$requiredFields[$i]];
+    for ($i = 0; $i < count($required_fields); $i++) {
+      $value = $_POST[$required_fields[$i]];
 
       if (empty($value)) {
-        $allRequiredFilled = false;
+        $all_required_filled = false;
         break;
       }
     }
 
-  if ($allRequiredFilled) {
+  if ($all_required_filled) {
 
     // Remove html tags.
-    $userGivenName = strip_tags($_POST["given-name"]);
-    $userFamilyName = strip_tags($_POST["family-name"]);
-    $userEmail = strip_tags($_POST["email"]);
-    $userPassword = strip_tags($_POST["new-password"]);
+    $given_name = strip_tags($_POST["given-name"]);
+    $family_name = strip_tags($_POST["family-name"]);
+    $email = strip_tags($_POST["email"]);
+    $user_password = strip_tags($_POST["new-password"]);
 
     /*  This variable hashes and salts the password.
-     *  The variables $SALT_PREFIX and $SALT_SUFFIX
+     *  The variables $salt_prefix and $salt_suffix
      *  are found in config.php. */
-    $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
+    $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
 
-    include_once "database_connect.php";
+    include "database_connect.php";
 
     $stmt = $conn->stmt_init();
-    $query = "SELECT email FROM users WHERE email='{$userEmail}'";
-    $errorMessage = "";
+    $query = "SELECT email FROM users WHERE email='{$email}'";
+    $error_message = "";
 
     if($stmt->prepare($query)) {
       $stmt->execute();
       $result = $stmt->get_result();
       $stmt->close();
     } else {
-      $errorMessage = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
+      $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
     }
 
     if($result->num_rows) {
-      $errorMessage = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
+      $error_message = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
     } else {
-      $addNewUser = "INSERT INTO users VALUES (NULL, '$userGivenName', '$userFamilyName', '$userEmail', '$hashedPassword', NULL)";
+      $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
 
       // Ask database and insert values.
-      mysqli_query($conn, $addNewUser);
+      mysqli_query($conn, $add_new_user);
 
       // Close connection.
       $conn->close();
 
-      storeUserInSession($userGivenName, $userFamilyName, $userEmail);
+      $error_message = "<p class=\"error-message\">Du är nu registrerad, logga in för att börja ladda upp selfies.</p>";
+
+
+      // TODO: Se till att få ur information om id direkt så att du kan skicka vidare till dashboard.
+
+      // storeUserInSession($id, $given_name, $family_name, $email, $hashed_password, NULL);
 
       // Redirect user to dashboard.php after registration is completed.
-      header("Location: dashboard.php");
+      // header("Location: dashboard.php");
+
+
 
       } //  This close the else statement that adds a new user to the database.
-    }   //  This close the if statement that checks if ($allRequiredFilled).
+    }   //  This close the if statement that checks if ($all_required_filled).
   }     //  This close the statement that checks if there is submitted info.
 ?>
 <div class="background-container">
@@ -79,7 +86,7 @@
   <div class="content">
     <div class="register">
       <h2>Registrera dig</h2>
-      <?php if(!empty($errorMessage)) { echo "$errorMessage"; } ?>
+      <?php if(!empty($error_message)) { echo "$error_message"; } ?>
       <form method="POST">
         <div class="input-wrapper">
           <label for="given-name">Förnamn</label>
@@ -103,4 +110,4 @@
     </div>
   </div> <!-- This closes the div with the class "content" -->
 </div> <!-- This closes the div with the class "background-container" -->
-<?php include_once "footer.php"; ?>
+<?php include "footer.php"; ?>

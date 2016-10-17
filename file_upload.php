@@ -1,0 +1,36 @@
+<?php
+include './functions.php';
+
+if(isset($_POST["upload"])) {
+
+  $target_folder = "./userpics/";
+  $file_name = basename($_FILES["selfie"]["name"]);
+  $type = pathinfo($file_name, PATHINFO_EXTENSION);
+  $file_error = check_uploaded_file($_FILES["selfie"]);
+
+  $target_name = $target_folder . basename($_SESSION["userid"]) . ".$type";
+
+  if($file_error) {
+    echo "<p class=\"upload-message\">$file_error</p>";
+    exit;
+  }
+
+  // Move file to /.userpics.
+  if(move_uploaded_file($_FILES["selfie"]["tmp_name"], $target_name)) {
+    // File upload success.
+    include "./database_connect.php";
+
+    $query = "UPDATE users SET profilepic_url = '{$target_name}' WHERE id = '{$_SESSION["userid"]}'";
+    $stmt = $conn->stmt_init();
+
+    if($stmt->prepare($query)) {
+      $stmt->execute();
+        $_SESSION["user-selfie"] = $target_name;
+      } else {
+        echo mysqli_error();
+      }
+    }
+  $conn->close();
+  }
+?>
+</h2>

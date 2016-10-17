@@ -1,7 +1,7 @@
 <?php
-include_once "./config.php";
-include_once "./session.php";
-include_once "./functions.php";
+include "./config.php";
+include "./session.php";
+include "./functions.php";
 
   // Check if there is already an active session.
   if(isset($_SESSION["user-email"])) {
@@ -14,34 +14,34 @@ include_once "./functions.php";
     // Check if input fields for email and password are filled.
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {
 
-      include_once "database_connect.php";
+      include "database_connect.php";
 
-      $userEmail = mysqli_real_escape_string($conn, $_POST["email"]);
-      $userPassword = mysqli_real_escape_string($conn, $_POST["password"]);
+      $user_email = mysqli_real_escape_string($conn, $_POST["email"]);
+      $user_password = mysqli_real_escape_string($conn, $_POST["password"]);
 
       /*  This variable hashes and salts the password.
-       *  The variables $SALT_PREFIX and $SALT_SUFFIX
+       *  The variables $salt_prefix and $salt_suffix
        *  are found in config.php. */
-      $hashedPassword = hash("ripemd128", "$SALT_PREFIX$userPassword$SALT_SUFFIX");
+      $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
 
       $stmt = $conn->stmt_init();
-      $checkEmail = "SELECT * FROM users WHERE email = '{$userEmail}'";
+      $checkEmail = "SELECT * FROM users WHERE email = '{$user_email}'";
 
       if($stmt->prepare($checkEmail)) {
 
         $stmt->execute();
-        $stmt->bind_result($id, $givenName, $familyName, $email, $password, $selfie);
+        $stmt->bind_result($id, $given_name, $family_name, $email, $password, $selfie);
         $stmt->fetch();
         $stmt->close();
         $conn->close();
 
-        if ($hashedPassword == $password) {
+        if ($hashed_password == $password) {
           header("Location: ./dashboard.php");
 
-          storeUserInSession($givenName, $familyName, $email, $selfie);
+          store_user_in_session($id, $given_name, $family_name, $email, $selfie);
 
         } else {
-          $errorMessage = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
+          $error_message = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
         }
       } else {
         // Prints error message.

@@ -1,6 +1,6 @@
 <?php
-  include_once "./header.php";
-  include_once "./logincheck.php";
+  include "./header.php";
+  include "./logincheck.php";
 ?>
 <div class="background-container">
   <header>
@@ -11,7 +11,7 @@
     <form method="POST">
       <div class="login">
         <h2>Logga in</h2>
-        <?php if(!empty($errorMessage)) { echo $errorMessage; } ?>
+        <?php if(!empty($error_message)) { echo $error_message; } ?>
         <div class="input-wrapper">
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" value="katt@test.com">
           <label for="email">E-postadress</label>
@@ -26,4 +26,4 @@
     </form>
   </div> <!-- This closes the div with the class "content" -->
 </div> <!-- This closes the div with the class "background-container" -->
-<?php include_once "footer.php"; ?>
+<?php include "footer.php"; ?>
