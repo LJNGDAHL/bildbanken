@@ -31,7 +31,7 @@ h2 {
   margin: 0.5em;
 }
 
-p, input, button {
+p, input, button, .upload-file {
   font-family: 'Raleway', sans-serif;
   font-size: 18px;
   font-size: 1.8rem;
@@ -110,6 +110,7 @@ START OF MAIN CONTENT
 .login, .register, .dashboard {
   background-color: #f8f8f8;
   border-radius: 1px;
+  margin: 0 auto;
   max-width: 750px;
   padding: 3em;
 }
@@ -132,7 +133,7 @@ START OF MAIN CONTENT
 }
 
 /* Completely remove from the flow but leave available to screen readers. */
-label {
+.input-wrapper label {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   height: 1px;
@@ -157,17 +158,13 @@ input {
   appearance: none;
 }
 
-/*.choose-file {
-  background-color: #db5461;
-  text-align: center;
-}*/
-
-input:focus {
+.input-wrapper input:focus {
   border: 3px solid #47c9d3;
 }
 
-button {
+button, .choose-file + label.upload-file {
   background-color: #47c9d3;
+  box-sizing: border-box;
   box-shadow: 1px 2px 2px #e1dede;
   color: #fff;
   height: 60px;
@@ -180,17 +177,21 @@ button:hover {
   background-color: #51dde7;
 }
 
-.terracotta {
-  background-color: #53db97;
-}
-
-.terracotta:hover {
-  background-color: #60f2a9;
-}
-
 button:active {
   transform: translateY(5px);
 }
+
+.mint {
+  background-color: #53db97;
+  height: 50px;
+  height: 5rem;
+  margin-bottom: 3rem;
+}
+
+.mint:hover {
+  background-color: #60f2a9;
+}
+
 /* Button and input ends here. ---------------------------------------------- */
 
 .login p, .register p {
@@ -225,6 +226,7 @@ START OF DASHBOARD PAGE
 }
 
 .dashboard > header {
+  padding: 1rem 0;
   margin-bottom: 2rem;
 }
 
@@ -250,8 +252,30 @@ START OF DASHBOARD PAGE
   padding: 3rem;
 }
 
-.upload-message {
-  margin-bottom: 1em;
+/* Input field for uploading files starts here -------------------------------*/
+
+.choose-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.choose-file + label.upload-file {
+  background-color: #9ad2cb;
+  display: block;
+  height: 50px;
+  height: 5rem;
+  margin: 0.6rem 0;
+  padding: 1.6rem 0;
+}
+
+.choose-file:focus + label.upload-file,
+.choose-file + label.upload-file:hover {
+    background-color: #b5ded9;
+    width: 100%;
 }
 
 form {

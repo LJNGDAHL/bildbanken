@@ -1,15 +1,16 @@
 <?php
-  include "./header.php";
-  include "./config.php";
-  include "./session.php";
-  include "./functions.php";
+  include_once "./header.php";
+  include_once "./config.php";
+  include_once "./session.php";
+  include_once "./functions.php";
 
-  // Check if there is already an active session.
-  if(isset($_SESSION["user-email"])) {
+  // Redirect to dashboard.php if there is already an active session.
+  if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+    header("Location: ./dashboard.php");
+  }
 
-    header("Location: dashboard.php");
-
-  } elseif (isset($_POST["submit"])) {
+  // Checks if user has submitted info.
+  if (isset($_POST["submit"])) {
 
     $all_required_filled = true;
     $required_fields = array("given-name", "family-name", "email", "new-password");
@@ -24,36 +25,36 @@
       }
     }
 
-  if ($all_required_filled) {
+    if ($all_required_filled) {
 
-    // Remove html tags.
-    $given_name = strip_tags($_POST["given-name"]);
-    $family_name = strip_tags($_POST["family-name"]);
-    $email = strip_tags($_POST["email"]);
-    $user_password = strip_tags($_POST["new-password"]);
+      // Remove html tags.
+      $given_name = strip_tags($_POST["given-name"]);
+      $family_name = strip_tags($_POST["family-name"]);
+      $email = strip_tags($_POST["email"]);
+      $user_password = strip_tags($_POST["new-password"]);
 
-    /*  This variable hashes and salts the password.
-     *  The variables $salt_prefix and $salt_suffix
-     *  are found in config.php. */
-    $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
+      /*  This variable hashes and salts the password.
+       *  The variables $salt_prefix and $salt_suffix
+       *  are found in config.php. */
+      $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
 
-    include "database_connect.php";
+      include_once "database_connect.php";
 
-    $stmt = $conn->stmt_init();
-    $query = "SELECT email FROM users WHERE email='{$email}'";
-    $error_message = "";
+      $stmt = $conn->stmt_init();
+      $query = "SELECT email FROM users WHERE email='{$email}'";
+      $error_message = "";
 
-    if($stmt->prepare($query)) {
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $stmt->close();
-    } else {
-      $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
-    }
+      if($stmt->prepare($query)) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+      } else {
+        $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
+      }
 
-    if($result->num_rows) {
-      $error_message = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
-    } else {
+      if($result->num_rows) {
+        $error_message = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
+      } else {
       $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
 
       // Ask database and insert values.
@@ -89,19 +90,19 @@
       <?php if(!empty($error_message)) { echo "$error_message"; } ?>
       <form method="POST">
         <div class="input-wrapper">
-          <label for="given-name">Förnamn</label>
+          <label class="register" for="given-name">Förnamn</label class="input-label">
           <input type="text" id="given-name" name="given-name" autocomplete="given-name" placeholder="Förnamn" required>
         </div>
         <div class="input-wrapper">
-          <label for="family-name">Efternamn</label>
+          <label for="family-name">Efternamn</label class="input-label">
           <input type="text" id="family-name" name="family-name" autocomplete="family-name" placeholder="Efternamn" required>
         </div>
         <div class="input-wrapper">
-          <label for="email">E-postadress</label>
+          <label for="email">E-postadress</label class="input-label">
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" required>
         </div>
         <div class="input-wrapper">
-          <label for="new-password">Lösenord</label>
+          <label for="new-password">Lösenord</label class="input-label">
           <input type="password" id="new-password" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord" required>
         </div>
         <button type="submit" name="submit">Registrera dig</button>
@@ -110,4 +111,4 @@
     </div>
   </div> <!-- This closes the div with the class "content" -->
 </div> <!-- This closes the div with the class "background-container" -->
-<?php include "footer.php"; ?>
+<?php include_once "footer.php"; ?>

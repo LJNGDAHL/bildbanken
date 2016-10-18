@@ -1,5 +1,5 @@
 <?php
-  include "./config.php";
+  include_once "./config.php";
   $conn = new mysqli($db_hostname, $db_username, $db_password, $db_name);
   $conn->set_charset("utf8");
   $error = $conn->connect_errno;

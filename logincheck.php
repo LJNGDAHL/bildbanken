@@ -1,20 +1,20 @@
 <?php
-include "./config.php";
-include "./session.php";
-include "./functions.php";
+  include_once "./config.php";
+  include_once "./session.php";
+  include_once "./functions.php";
 
-  // Check if there is already an active session.
-  if(isset($_SESSION["user-email"])) {
-
+  // Redirect to dashboard.php if there is already an active session.
+  if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
     header("Location: ./dashboard.php");
+  }
 
   // Check if the user has pressed the submit button.
-  } elseif(isset($_POST["submit"])) {
+  if(isset($_POST["submit"])) {
 
     // Check if input fields for email and password are filled.
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {
 
-      include "database_connect.php";
+      include_once "database_connect.php";
 
       $user_email = mysqli_real_escape_string($conn, $_POST["email"]);
       $user_password = mysqli_real_escape_string($conn, $_POST["password"]);
@@ -44,7 +44,7 @@ include "./functions.php";
           $error_message = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
         }
       } else {
-        // Prints error message.
+        // Prints error message about $stmt.
         echo mysqli_stmt_error($stmt);
       }
     } // Close the check if input fields for email and password are filled.

@@ -1,5 +1,5 @@
 <?php
-include './functions.php';
+include_once './functions.php';
 
 if(isset($_POST["upload"])) {
 
@@ -18,7 +18,7 @@ if(isset($_POST["upload"])) {
   // Move file to /.userpics.
   if(move_uploaded_file($_FILES["selfie"]["tmp_name"], $target_name)) {
     // File upload success.
-    include "./database_connect.php";
+    include_once "./database_connect.php";
 
     $query = "UPDATE users SET profilepic_url = '{$target_name}' WHERE id = '{$_SESSION["userid"]}'";
     $stmt = $conn->stmt_init();
@@ -31,6 +31,9 @@ if(isset($_POST["upload"])) {
       }
     }
   $conn->close();
+
+  // Refresh page so that new selfie is shown.
+  header("Refresh:0");
   }
 ?>
 </h2>
