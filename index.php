@@ -20,7 +20,7 @@
           <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Lösenord" value="test">
           <label for="password">Lösenord</label class="input-label">
         </div>
-        <button type="submit" name="submit">Logga in</button>
+        <button class="button" type="submit" name="submit">Logga in</button>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>

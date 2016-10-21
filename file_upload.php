@@ -3,6 +3,7 @@ include_once './functions.php';
 
 if(isset($_POST["upload"])) {
 
+  // TODO: Se till att du får ett meddelande om filen ligger uppe.
   $target_folder = "./userpics/";
   $file_name = basename($_FILES["selfie"]["name"]);
   $type = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -10,13 +11,8 @@ if(isset($_POST["upload"])) {
 
   $target_name = $target_folder . basename($_SESSION["userid"]) . ".$type";
 
-  if($file_error) {
-    echo "<p class=\"upload-message\">$file_error</p>";
-    exit;
-  }
-
   // Move file to /.userpics.
-  if(move_uploaded_file($_FILES["selfie"]["tmp_name"], $target_name)) {
+  if (!$file_error && move_uploaded_file($_FILES["selfie"]["tmp_name"], $target_name)) {
     // File upload success.
     include_once "./database_connect.php";
 
@@ -29,11 +25,11 @@ if(isset($_POST["upload"])) {
       } else {
         echo mysqli_error();
       }
-    }
-  $conn->close();
+      $conn->close();
 
-  // Refresh page so that new selfie is shown.
-  header("Refresh:0");
+      // Refresh page so that new selfie is shown.
+      header("Refresh:0");
+    }
   }
 ?>
 </h2>

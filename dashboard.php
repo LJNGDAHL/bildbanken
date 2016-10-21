@@ -5,16 +5,11 @@
   include_once "./session.php";
   include_once "./peptalk.php";
   include_once './functions.php';
+  include_once "./file_upload.php";
 
   // Print content on dashboard.php if there is a current session active.
   if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
     header("Location: ./index.php");
-  }
-
-  // Destroy session if user logs out.
-  if(isset($_POST["logout"])) {
-    header("Location: ./index.php");
-    logout();
   }
   ?>
   <div class="dashboard">
@@ -29,18 +24,17 @@
     <img class="selfie" src="<?php echo $_SESSION["user-selfie"] ?>" alt="Foto på <?php echo $_SESSION["given-name"]; ?>">
     <?php else: ?>
       <div class="placeholder-selfie">
-        <p>Du har inte laddat upp någon selfie än. :(</p>
+        <p>Du har inte laddat upp<br> någon selfie än.</p>
       </div>
     <?php endif ?>
     <form method="POST" enctype="multipart/form-data">
-        <input class="choose-file" type="file" name="selfie" id="choose-file">
-        <label for="choose-file" class="upload-file">Välj fil</label>
-      <button class="mint" type="submit" name="upload">Ladda upp</button>
+      <?php if (isset($file_error)): ?>
+        <p class="upload-message"><?php echo $file_error ?></p>
+      <?php endif; ?>
+      <input class="choose-file" type="file" name="selfie" id="choose-file" required>
+      <label for="choose-file" class="upload-file"></label>
+      <button class="mint button" type="submit" name="upload">Ladda upp</button>
     </form>
-    <form method="POST">
-      <!-- TODO: Change into a link instead of button. -->
-      <button type="submit" name="logout">Logga ut</button>
-    </form>
+    <a href="logout.php" class="button" target="_self">Logga ut</a>
   </div> <!-- This closes the div with the class "dashboard" -->
 <?php include_once "footer.php"; ?>
-<?php include_once "./file_upload.php"; ?>

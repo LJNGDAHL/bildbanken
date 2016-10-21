@@ -7,34 +7,37 @@ START OF GLOBAL STYLES
 html, body {
   background-color: #f8f8f8;
   font-size: 62.5%; /* 1rem = 10px */
+  font-weight: 400;
   text-align: center;
   height: 100%;
 }
 
-h2, h3, label, header > p {
+h1 {
+  font-family: 'Lobster Two', cursive;
+  font-size: 7rem;
+  font-style: italic;
+  font-weight: 400;
+  margin: 0;
+}
+
+h2, p, input, label, .button, .upload-file {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
 }
 
-h1 {
-  font-family: 'Lobster Two', cursive;
-  font-size: 70px;
-  font-size: 7rem;
-  font-weight: 400;
-  font-style: italic;
-  margin: 0;
-}
-
 h2 {
-  font-size: 24px;
   font-size: 2.4rem;
   margin: 0.5em;
 }
 
-p, input, button, .upload-file {
-  font-family: 'Raleway', sans-serif;
-  font-size: 18px;
+p, input, .button, .upload-file {
   font-size: 1.8rem;
+  width: 100%;
+}
+
+a {
+  color: #47c9d3;
+  text-decoration: none;
 }
 
 .content {
@@ -54,7 +57,6 @@ p, input, button, .upload-file {
   }
 
   h1 {
-    font-size: 90px;
     font-size: 9rem;
   }
 
@@ -65,7 +67,7 @@ p, input, button, .upload-file {
 }
 
 /* -----------------------------------------------------------------------------
-END OF RESET AND GLOBAL STYLES
+END OF GLOBAL STYLES
 ----------------------------------------------------------------------------- */
 /* -----------------------------------------------------------------------------
 HEADER
@@ -80,7 +82,6 @@ h1 > a {
 }
 
 header > p {
-  font-size: 22px;
   font-size: 2.2rem;
 }
 
@@ -122,17 +123,16 @@ START OF MAIN CONTENT
 
 /* Button and input fields starts here. ------------------------------------ */
 
-.input-wrapper {
+.input-wrapper, .button {
   background-color: #fff;
   border: 1px solid #efefef;
   color: #c3c3c3;
-  height: 60px;
   height: 6rem;
   margin: 1rem 0;
   position: relative;
 }
 
-/* Completely remove from the flow but leave available to screen readers. */
+/* Completely remove from the flow but leave available to screen readers. --- */
 .input-wrapper label {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
@@ -142,12 +142,12 @@ START OF MAIN CONTENT
   position: absolute;
   width: 1px;
 }
+/* -------------------------------------------------------------------------- */
 
-input, button {
+input, .button {
   border: 0px solid;
   box-sizing: border-box;
   text-align: center;
-  width: 100%;
 }
 
 input {
@@ -162,29 +162,28 @@ input {
   border: 3px solid #47c9d3;
 }
 
-button, .choose-file + label.upload-file {
+.button, .choose-file + label.upload-file {
   background-color: #47c9d3;
   box-sizing: border-box;
-  box-shadow: 1px 2px 2px #e1dede;
+  box-shadow: 1px 2px 2px rbga(0, 0, 0, 0.2);
   color: #fff;
-  height: 60px;
+  display: block;
   height: 6rem;
-  text-transform: uppercase;
   width: 100%;
+  padding: 2rem 0;
+  text-transform: uppercase;
 }
 
-button:hover {
+.button:hover {
   background-color: #51dde7;
 }
 
-button:active {
+.button:active {
   transform: translateY(5px);
 }
 
 .mint {
   background-color: #53db97;
-  height: 50px;
-  height: 5rem;
   margin-bottom: 3rem;
 }
 
@@ -197,11 +196,6 @@ button:active {
 .login p, .register p {
   margin-top: 1em;
 } /* This styles the paragraph after main button. */
-
-a {
-  color: #47c9d3;
-  text-decoration: none;
-}
 
 /* -----------------------------------------------------------------------------
 END OF MAIN CONTENT
@@ -226,20 +220,20 @@ START OF DASHBOARD PAGE
 }
 
 .dashboard > header {
-  padding: 1rem 0;
   margin-bottom: 2rem;
+  padding: 1rem 0;
 }
 
 .selfie {
-  box-sizing: border-box;
   border: 15px solid #db5461;
+  box-sizing: border-box;
   width: 100%;
 }
 
 .placeholder-selfie {
-  display: block;
   background-color: #db5461;
-  height: 20vh;
+  display: block;
+  height: 23rem;
   width: 100%;
 }
 
@@ -247,40 +241,76 @@ START OF DASHBOARD PAGE
   box-sizing: border-box;
   color: #fff;
   font-family: 'Lobster Two', cursive;
-  font-size: 30px;
   font-size: 3rem;
-  padding: 3rem;
+  padding: 8rem 2rem 0;
+}
+
+.upload-message {
+  font-size: 1.2rem;
+
+}
+
+@media screen and (min-width: 751px) {
+
+  .placeholder-selfie > p {
+    font-size: 4rem;
+    padding: 6rem 3rem 0;
+  }
+}
+
+
+form[enctype="multipart/form-data"] {
+  margin-bottom: -5em;
+  position: relative;
+  z-index: 1;
 }
 
 /* Input field for uploading files starts here -------------------------------*/
 
 .choose-file {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .choose-file + label.upload-file {
-  background-color: #9ad2cb;
+  background-color: #53db97;
   display: block;
-  height: 50px;
-  height: 5rem;
   margin: 0.6rem 0;
-  padding: 1.6rem 0;
+  padding: 2rem 0;
 }
 
 .choose-file:focus + label.upload-file,
 .choose-file + label.upload-file:hover {
-    background-color: #b5ded9;
-    width: 100%;
+  background-color: #60f2a9;
+  width: 100%;
 }
 
-form {
-  margin-bottom: 1em;
+label.upload-file::before {
+  content: "Välj fil";
 }
+
+.choose-file:valid + label.upload-file::before {
+  content: "1 fil vald";
+}
+
+.choose-file ~ button[type="submit"] {
+  margin: 0;
+  position: relative;
+  top: -6.5rem;
+  transition: margin 1s ease-out, top 1s ease-out;
+  z-index: -1;
+}
+
+.choose-file:valid ~ button[type="submit"] {
+  margin: 0.2rem 0 6rem;
+  top: 0;
+}
+
+/* Input field for uploading files ends here ---------------------------------*/
 
 @media screen and (min-width: 751px) {
 

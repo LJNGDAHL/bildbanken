@@ -48,6 +48,7 @@
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
+
       } else {
         $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
       }
@@ -57,6 +58,9 @@
       } else {
       $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
 
+        // $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL) OUTPUT INSERTED.id VALUES ($id)";
+      // TODO: Kika om du kan få ut infon nu!
+
       // Ask database and insert values.
       mysqli_query($conn, $add_new_user);
 
@@ -65,12 +69,9 @@
 
       $error_message = "<p class=\"error-message\">Du är nu registrerad, logga in för att börja ladda upp selfies.</p>";
 
-
-      // TODO: Se till att få ur information om id direkt så att du kan skicka vidare till dashboard.
-
-      // storeUserInSession($id, $given_name, $family_name, $email, $hashed_password, NULL);
-
-      // Redirect user to dashboard.php after registration is completed.
+      // store_user_in_session($id, $given_name, $family_name, $email, $hashed_password, NULL);
+      //
+      // // Redirect user to dashboard.php after registration is completed.
       // header("Location: dashboard.php");
 
 
@@ -105,7 +106,7 @@
           <label for="new-password">Lösenord</label class="input-label">
           <input type="password" id="new-password" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord" required>
         </div>
-        <button type="submit" name="submit">Registrera dig</button>
+        <button class="button" type="submit" name="submit">Registrera dig</button>
       </form>
       <p>Har du redan ett konto? <a href="./index.php" target="_self">Logga in</a></p>
     </div>
