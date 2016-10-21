@@ -7,9 +7,8 @@ START OF GLOBAL STYLES
 html, body {
   background-color: #f8f8f8;
   font-size: 62.5%; /* 1rem = 10px */
-  font-weight: 400;
-  text-align: center;
   height: 100%;
+  text-align: center;
 }
 
 h1 {
@@ -132,7 +131,7 @@ START OF MAIN CONTENT
   position: relative;
 }
 
-/* Completely remove from the flow but leave available to screen readers. --- */
+/* Completely remove from the flow but leave available to screen readers. */
 .input-wrapper label {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
@@ -142,7 +141,6 @@ START OF MAIN CONTENT
   position: absolute;
   width: 1px;
 }
-/* -------------------------------------------------------------------------- */
 
 input, .button {
   border: 0px solid;
@@ -165,13 +163,13 @@ input {
 .button, .choose-file + label.upload-file {
   background-color: #47c9d3;
   box-sizing: border-box;
-  box-shadow: 1px 2px 2px rbga(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
   color: #fff;
   display: block;
   height: 6rem;
-  width: 100%;
   padding: 2rem 0;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .button:hover {
@@ -192,10 +190,6 @@ input {
 }
 
 /* Button and input ends here. ---------------------------------------------- */
-
-.login p, .register p {
-  margin-top: 1em;
-} /* This styles the paragraph after main button. */
 
 /* -----------------------------------------------------------------------------
 END OF MAIN CONTENT
@@ -247,7 +241,6 @@ START OF DASHBOARD PAGE
 
 .upload-message {
   font-size: 1.2rem;
-
 }
 
 @media screen and (min-width: 751px) {
@@ -258,7 +251,6 @@ START OF DASHBOARD PAGE
   }
 }
 
-
 form[enctype="multipart/form-data"] {
   margin-bottom: -5em;
   position: relative;
@@ -268,11 +260,11 @@ form[enctype="multipart/form-data"] {
 /* Input field for uploading files starts here -------------------------------*/
 
 .choose-file {
-  width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute;
+  width: 0.1px;
   z-index: -1;
 }
 
@@ -301,7 +293,7 @@ label.upload-file::before {
   margin: 0;
   position: relative;
   top: -6.5rem;
-  transition: margin 1s ease-out, top 1s ease-out;
+  transition: margin 0.8s ease-out, top 0.8s ease-out;
   z-index: -1;
 }
 

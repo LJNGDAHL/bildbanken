@@ -3,7 +3,6 @@ include_once './functions.php';
 
 if(isset($_POST["upload"])) {
 
-  // TODO: Se till att du får ett meddelande om filen ligger uppe.
   $target_folder = "./userpics/";
   $file_name = basename($_FILES["selfie"]["name"]);
   $type = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -32,4 +31,3 @@ if(isset($_POST["upload"])) {
     }
   }
 ?>
-</h2>

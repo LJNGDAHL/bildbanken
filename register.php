@@ -58,23 +58,24 @@
       } else {
       $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
 
-        // $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL) OUTPUT INSERTED.id VALUES ($id)";
-      // TODO: Kika om du kan få ut infon nu!
-
       // Ask database and insert values.
       mysqli_query($conn, $add_new_user);
+
+      /* Get the last inserted id.
+      *   If multiple users where to register at the same time,
+      *   there might be a risk using this method,
+      *   but at this moment this method works fine. */
+      $id = mysqli_insert_id($conn);
 
       // Close connection.
       $conn->close();
 
       $error_message = "<p class=\"error-message\">Du är nu registrerad, logga in för att börja ladda upp selfies.</p>";
 
-      // store_user_in_session($id, $given_name, $family_name, $email, $hashed_password, NULL);
-      //
-      // // Redirect user to dashboard.php after registration is completed.
-      // header("Location: dashboard.php");
+      store_user_in_session($id, $given_name, $family_name, $email);
 
-
+      // Redirect user to dashboard.php after registration is completed.
+      header("Location: dashboard.php");
 
       } //  This close the else statement that adds a new user to the database.
     }   //  This close the if statement that checks if ($all_required_filled).
@@ -91,19 +92,19 @@
       <?php if(!empty($error_message)) { echo "$error_message"; } ?>
       <form method="POST">
         <div class="input-wrapper">
-          <label class="register" for="given-name">Förnamn</label class="input-label">
+          <label class="input-label" for="given-name">Förnamn</label>
           <input type="text" id="given-name" name="given-name" autocomplete="given-name" placeholder="Förnamn" required>
         </div>
         <div class="input-wrapper">
-          <label for="family-name">Efternamn</label class="input-label">
+          <label class="input-label" for="family-name">Efternamn</label>
           <input type="text" id="family-name" name="family-name" autocomplete="family-name" placeholder="Efternamn" required>
         </div>
         <div class="input-wrapper">
-          <label for="email">E-postadress</label class="input-label">
+          <label class="input-label" for="email">E-postadress</label>
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" required>
         </div>
         <div class="input-wrapper">
-          <label for="new-password">Lösenord</label class="input-label">
+          <label class="input-label" for="new-password">Lösenord</label>
           <input type="password" id="new-password" name="new-password" autocomplete="new-password" placeholder="Nytt lösenord" required>
         </div>
         <button class="button" type="submit" name="submit">Registrera dig</button>

@@ -14,11 +14,11 @@
         <?php if(!empty($error_message)) { echo $error_message; } ?>
         <div class="input-wrapper">
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" value="katt@test.com">
-          <label class="register" for="email">E-postadress</label class="input-label">
+          <label class="input-label" for="email">E-postadress</label>
         </div>
         <div class="input-wrapper">
           <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Lösenord" value="test">
-          <label for="password">Lösenord</label class="input-label">
+          <label class="input-label" for="password">Lösenord</label>
         </div>
         <button class="button" type="submit" name="submit">Logga in</button>
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
