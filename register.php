@@ -51,6 +51,7 @@
 
       } else {
         $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
+        exit();
       }
 
       if($result->num_rows) {
@@ -69,8 +70,6 @@
 
       // Close connection.
       $conn->close();
-
-      $error_message = "<p class=\"error-message\">Du är nu registrerad, logga in för att börja ladda upp selfies.</p>";
 
       store_user_in_session($id, $given_name, $family_name, $email);
 

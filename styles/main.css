@@ -236,19 +236,21 @@ START OF DASHBOARD PAGE
   color: #fff;
   font-family: 'Lobster Two', cursive;
   font-size: 3rem;
-  padding: 8rem 2rem 0;
-}
-
-.upload-message {
-  font-size: 1.2rem;
+  margin-top: 2.5rem;
+  padding: 1rem 2rem;
 }
 
 @media screen and (min-width: 751px) {
 
   .placeholder-selfie > p {
     font-size: 4rem;
-    padding: 6rem 3rem 0;
+    margin-top: 3rem;
+    padding: 0 3rem;
   }
+}
+
+.upload-message {
+  font-size: 1.2rem;
 }
 
 form[enctype="multipart/form-data"] {

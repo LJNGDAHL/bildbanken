@@ -8,7 +8,7 @@
     header("Location: ./dashboard.php");
   }
 
-  // Check if the user has pressed the submit button.
+  // Check if user has pressed the submit button.
   if(isset($_POST["submit"])) {
 
     // Check if input fields for email and password are filled.

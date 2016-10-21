@@ -24,6 +24,9 @@
     <img class="selfie" src="<?php echo $_SESSION["user-selfie"] ?>" alt="Foto på <?php echo $_SESSION["given-name"]; ?>">
     <?php else: ?>
       <div class="placeholder-selfie">
+        <div class="welcome-text">
+          <p>Välkommen <?php echo $_SESSION["given-name"];?>!<br>
+        </div>
         <p>Du har inte laddat upp<br> någon selfie än.</p>
       </div>
     <?php endif ?>
