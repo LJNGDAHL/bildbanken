@@ -32,12 +32,12 @@ function logout() {
  * @param  string $file The uploaded file.
  */
 function checkUploadedFile($file) {
-  $allowed_file_types = array("jpg", "jpeg", "gif", "png", "webP", "");
+  $allowed_file_types = array("jpg", "JPG", "jpeg", "gif", "png", "webP", "");
   $list_allowed_types = implode(", ", $allowed_file_types);
   $type = pathinfo($file["name"], PATHINFO_EXTENSION);
 
-  if($file["size"] > 2000000) {
-    return "Filen är för stor (max 2 MB).";
+  if($file["size"] > 3000000) {
+    return "Filen är för stor (max 3 MB).";
   }
 
   if($file["size"] == 0) {
