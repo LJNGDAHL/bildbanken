@@ -38,11 +38,12 @@
         if ($hashed_password == $password) {
           header("Location: ./dashboard.php");
 
-          store_user_in_session($id, $given_name, $family_name, $email, $selfie);
+          storeUserInSession($id, $given_name, $family_name, $email, $selfie);
 
         } else {
           $error_message = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
         }
+
       } else {
         // Prints error message about $stmt.
         echo mysqli_stmt_error($stmt);

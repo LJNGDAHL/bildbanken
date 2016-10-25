@@ -9,7 +9,7 @@ include_once "./config.php";
  * @param  string $email      The user's email.
  * @param  string $selfie     The user's uploaded selfie. Empty by default.
  */
-function store_user_in_session($id, $given_name, $family_name, $email, $selfie = NULL) {
+function storeUserInSession($id, $given_name, $family_name, $email, $selfie = NULL) {
   $_SESSION["logged-in"] = true;
   $_SESSION["userid"] = $id;
   $_SESSION["given-name"] = $given_name;
@@ -31,7 +31,7 @@ function logout() {
  * The function checks size and type on uploaded files.
  * @param  string $file The uploaded file.
  */
-function check_uploaded_file($file) {
+function checkUploadedFile($file) {
   $allowed_file_types = array("jpg", "jpeg", "gif", "png", "webP", "");
   $list_allowed_types = implode(", ", $allowed_file_types);
   $type = pathinfo($file["name"], PATHINFO_EXTENSION);

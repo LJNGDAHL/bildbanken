@@ -63,7 +63,7 @@
       mysqli_query($conn, $add_new_user);
 
       /* Get the last inserted id.
-      *   If multiple users where to register at the same time,
+      *   If multiple users where to register at the same time
       *   there might be a risk using this method,
       *   but at this moment this method works fine. */
       $id = mysqli_insert_id($conn);
@@ -71,7 +71,7 @@
       // Close connection.
       $conn->close();
 
-      store_user_in_session($id, $given_name, $family_name, $email);
+      storeUserInSession($id, $given_name, $family_name, $email);
 
       // Redirect user to dashboard.php after registration is completed.
       header("Location: dashboard.php");

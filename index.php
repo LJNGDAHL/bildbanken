@@ -13,11 +13,11 @@
         <h2>Logga in</h2>
         <?php if(!empty($error_message)) { echo $error_message; } ?>
         <div class="input-wrapper">
-          <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress" value="katt@test.com">
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress">
           <label class="input-label" for="email">E-postadress</label>
         </div>
         <div class="input-wrapper">
-          <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Lösenord" value="test">
+          <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Lösenord">
           <label class="input-label" for="password">Lösenord</label>
         </div>
         <button class="button" type="submit" name="submit">Logga in</button>
