@@ -32,11 +32,7 @@
       $family_name = strip_tags($_POST["family-name"]);
       $email = strip_tags($_POST["email"]);
       $user_password = strip_tags($_POST["new-password"]);
-
-      /*  This variable hashes and salts the password.
-       *  The variables $salt_prefix and $salt_suffix
-       *  are found in config.php. */
-      $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
+      $hashed_password = hashPassword($user_password);
 
       include_once "database_connect.php";
       if (empty($db_error)) {

@@ -19,11 +19,7 @@
 
         $user_email = mysqli_real_escape_string($conn, $_POST["email"]);
         $user_password = mysqli_real_escape_string($conn, $_POST["password"]);
-
-        /*  This variable hashes and salts the password.
-         *  The variables $salt_prefix and $salt_suffix
-         *  are found in config.php. */
-        $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
+        $hashed_password = hashPassword($user_password);
 
         $stmt = $conn->stmt_init();
         $checkEmail = "SELECT * FROM users WHERE email = '{$user_email}'";

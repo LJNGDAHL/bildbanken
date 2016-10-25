@@ -19,6 +19,16 @@ function storeUserInSession($id, $given_name, $family_name, $email, $selfie = NU
 }
 
 /**
+ * This function hashes and salts passwords. The variables $salt_prefix and $salt_suffix are found in config.php.
+ * @param  string $password The user's password.
+ */
+function hashPassword($password) {
+  global $salt_prefix, $salt_suffix;
+  $hashed_password = hash("ripemd128", "$salt_prefix$password$salt_suffix");
+  return $hashed_password;
+}
+
+/**
  * The function unsets and destroy all cookies stored in a session.
  */
 function logout() {
