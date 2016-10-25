@@ -16,28 +16,34 @@
     <header>
       <h1>Bildbanken</h1>
     </header>
-    <?php if(isset($_SESSION["user-selfie"])): ?>
+    <?php if (isset($_SESSION["user-selfie"])): ?>
     <div class="welcome-text">
-      <p>Hej <?php echo $_SESSION["given-name"];?>!<br>
+      <p>Hej <?php echo $_SESSION["given-name"]; ?>!<br>
       <?php echo $peptalk[$random_peptalk]; ?><br>
     </div>
-    <img class="selfie" src="<?php echo $_SESSION["user-selfie"] ?>" alt="Foto på <?php echo $_SESSION["given-name"]; ?>">
+    <img class="selfie" src="<?php echo $_SESSION["user-selfie"]; ?>" alt="Foto på <?php echo $_SESSION["given-name"]; ?>">
     <?php else: ?>
       <div class="placeholder-selfie">
         <div class="welcome-text">
-          <p>Välkommen <?php echo $_SESSION["given-name"];?>!<br>
+          <p>Välkommen <?php echo $_SESSION["given-name"]; ?>!<br>
         </div>
         <p>Du har inte laddat upp<br> någon selfie än.</p>
       </div>
-    <?php endif ?>
-    <form method="POST" enctype="multipart/form-data">
-      <?php if (isset($file_error)): ?>
-        <p class="upload-message"><?php echo $file_error ?></p>
-      <?php endif; ?>
+    <?php endif; ?>
+    <form class="upload-form" method="POST" enctype="multipart/form-data">
+      <?php
+      if (!empty($db_error)) {
+        echo $db_error_message;
+      }
+
+      if (isset($file_error)): ?>
+        <p class="upload-message"><?php echo $file_error; ?></p>
+      <?php endif;
+      ?>
       <input class="choose-file" type="file" name="selfie" id="choose-file" required>
       <label for="choose-file" class="upload-file"></label>
       <button class="mint button" type="submit" name="upload">Ladda upp</button>
     </form>
     <a href="logout.php" class="button" target="_self">Logga ut</a>
-  </div> <!-- This closes the div with the class "dashboard" -->
+  </div>
 <?php include_once "footer.php"; ?>

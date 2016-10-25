@@ -4,49 +4,51 @@
   include_once "./functions.php";
 
   // Redirect to dashboard.php if there is already an active session.
-  if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+  if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
     header("Location: ./dashboard.php");
   }
 
   // Check if user has pressed the submit button.
-  if(isset($_POST["submit"])) {
+  if (isset($_POST["submit"])) {
 
     // Check if input fields for email and password are filled.
-    if(!empty($_POST["email"]) && !empty($_POST["password"])) {
+    if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
       include_once "database_connect.php";
+      if (empty($db_error)) {
 
-      $user_email = mysqli_real_escape_string($conn, $_POST["email"]);
-      $user_password = mysqli_real_escape_string($conn, $_POST["password"]);
+        $user_email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $user_password = mysqli_real_escape_string($conn, $_POST["password"]);
 
-      /*  This variable hashes and salts the password.
-       *  The variables $salt_prefix and $salt_suffix
-       *  are found in config.php. */
-      $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
+        /*  This variable hashes and salts the password.
+         *  The variables $salt_prefix and $salt_suffix
+         *  are found in config.php. */
+        $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
 
-      $stmt = $conn->stmt_init();
-      $checkEmail = "SELECT * FROM users WHERE email = '{$user_email}'";
+        $stmt = $conn->stmt_init();
+        $checkEmail = "SELECT * FROM users WHERE email = '{$user_email}'";
 
-      if($stmt->prepare($checkEmail)) {
+        if ($stmt->prepare($checkEmail)) {
 
-        $stmt->execute();
-        $stmt->bind_result($id, $given_name, $family_name, $email, $password, $selfie);
-        $stmt->fetch();
-        $stmt->close();
-        $conn->close();
+          $stmt->execute();
+          $stmt->bind_result($id, $given_name, $family_name, $email, $password, $selfie);
+          $stmt->fetch();
+          $stmt->close();
+          $conn->close();
 
-        if ($hashed_password == $password) {
-          header("Location: ./dashboard.php");
+          if ($hashed_password == $password) {
+            header("Location: ./dashboard.php");
 
-          storeUserInSession($id, $given_name, $family_name, $email, $selfie);
+            storeUserInSession($id, $given_name, $family_name, $email, $selfie);
+
+          } else {
+            $error_message = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
+          }
 
         } else {
-          $error_message = "<p class=\"error-message\">Du har angivit fel lösenord och/eller e-postadress.</p>";
+          // Prints error message about $stmt.
+          echo mysqli_stmt_error($stmt);
         }
-
-      } else {
-        // Prints error message about $stmt.
-        echo mysqli_stmt_error($stmt);
       }
     } // Close the check if input fields for email and password are filled.
   } // Close the check the user has pressed the submit button.

@@ -11,7 +11,10 @@
     <form method="POST">
       <div class="login">
         <h2>Logga in</h2>
-        <?php if(!empty($error_message)) { echo $error_message; } ?>
+        <?php
+        if (!empty($db_error)) { echo $db_error_message; }
+        if (!empty($error_message)) { echo $error_message; }
+        ?>
         <div class="input-wrapper">
           <input type="email" id="email" name="email" autocomplete="email" placeholder="E-postadress">
           <label class="input-label" for="email">E-postadress</label>

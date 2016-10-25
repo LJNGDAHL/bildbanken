@@ -5,7 +5,7 @@
   include_once "./functions.php";
 
   // Redirect to dashboard.php if there is already an active session.
-  if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+  if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
     header("Location: ./dashboard.php");
   }
 
@@ -39,44 +39,44 @@
       $hashed_password = hash("ripemd128", "$salt_prefix$user_password$salt_suffix");
 
       include_once "database_connect.php";
+      if (empty($db_error)) {
 
-      $stmt = $conn->stmt_init();
-      $query = "SELECT email FROM users WHERE email='{$email}'";
-      $error_message = "";
+        $stmt = $conn->stmt_init();
+        $query = "SELECT email FROM users WHERE email='{$email}'";
+        $error_message = "";
 
-      if($stmt->prepare($query)) {
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+        if ($stmt->prepare($query)) {
+          $stmt->execute();
+          $result = $stmt->get_result();
+          $stmt->close();
 
-      } else {
-        $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
-        exit();
+          if ($result->num_rows) {
+            $error_message = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
+          } else {
+            $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
+
+            // Ask database and insert values.
+            mysqli_query($conn, $add_new_user);
+
+            /* Get the last inserted id.
+            *   If multiple users where to register at the same time
+            *   there might be a risk using this method,
+            *   but at this moment this method works fine. */
+            $id = mysqli_insert_id($conn);
+
+            // Close connection.
+            $conn->close();
+
+            storeUserInSession($id, $given_name, $family_name, $email);
+
+            // Redirect user to dashboard.php after registration is completed.
+            header("Location: dashboard.php");
+
+          } //  This close the else statement that adds a new user to the database.
+        } else {
+          $error_message = "<p class=\"error-message\">Något gick galet, försök igen.</p>";
+        }
       }
-
-      if($result->num_rows) {
-        $error_message = "<p class=\"error-message\">E-postadressen är redan registrerad.</p>";
-      } else {
-      $add_new_user = "INSERT INTO users VALUES (NULL, '$given_name', '$family_name', '$email', '$hashed_password', NULL)";
-
-      // Ask database and insert values.
-      mysqli_query($conn, $add_new_user);
-
-      /* Get the last inserted id.
-      *   If multiple users where to register at the same time
-      *   there might be a risk using this method,
-      *   but at this moment this method works fine. */
-      $id = mysqli_insert_id($conn);
-
-      // Close connection.
-      $conn->close();
-
-      storeUserInSession($id, $given_name, $family_name, $email);
-
-      // Redirect user to dashboard.php after registration is completed.
-      header("Location: dashboard.php");
-
-      } //  This close the else statement that adds a new user to the database.
     }   //  This close the if statement that checks if ($all_required_filled).
   }     //  This close the statement that checks if there is submitted info.
 ?>
@@ -88,7 +88,10 @@
   <div class="content">
     <div class="register">
       <h2>Registrera dig</h2>
-      <?php if(!empty($error_message)) { echo "$error_message"; } ?>
+      <?php
+        if (!empty($db_error)) { echo $db_error_message; }
+        if (!empty($error_message)) { echo $error_message; }
+      ?>
       <form method="POST">
         <div class="input-wrapper">
           <label class="input-label" for="given-name">Förnamn</label>

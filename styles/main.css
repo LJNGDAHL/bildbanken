@@ -86,11 +86,11 @@ header > p {
 
 @media screen and (min-width: 751px) {
 
-  header {
+  h1 > a {
     color: #fff;
   }
 
-  h1 > a {
+  header {
     color: #fff;
   }
 
@@ -118,6 +118,7 @@ START OF MAIN CONTENT
 .error-message {
   color: #db5461;
   font-family: 'Lobster Two', cursive;
+  font-style: italic;
 }
 
 /* Button and input fields starts here. ------------------------------------ */
@@ -206,9 +207,10 @@ START OF DASHBOARD PAGE
 
 .welcome-text > p {
   color: #FEFEFF;
-  font-family: 'Lobster Two', cursive;
-  font-size: 20px;
   font-size: 2rem;
+  font-family: 'Lobster Two', cursive;
+  font-weight: 400;
+  font-style: italic;
   margin: 0;
   padding: 2rem 0 0.2rem;
 }
@@ -234,26 +236,18 @@ START OF DASHBOARD PAGE
 .placeholder-selfie > p {
   box-sizing: border-box;
   color: #fff;
-  font-family: 'Lobster Two', cursive;
+  font-family: 'Lobster Two', sans-serif;
   font-size: 3rem;
+  font-style: italic;
   margin-top: 2.5rem;
   padding: 1rem 2rem;
-}
-
-@media screen and (min-width: 751px) {
-
-  .placeholder-selfie > p {
-    font-size: 4rem;
-    margin-top: 3rem;
-    padding: 0 3rem;
-  }
 }
 
 .upload-message {
   font-size: 1.2rem;
 }
 
-form[enctype="multipart/form-data"] {
+.upload-form {
   margin-bottom: -5em;
   position: relative;
   z-index: 1;
@@ -318,6 +312,12 @@ label.upload-file::before {
     color: #202224;
     margin: 0 auto;
     width: 60vw;
+  }
+
+  .placeholder-selfie > p {
+    font-size: 4rem;
+    margin-top: 3rem;
+    padding: 0 3rem;
   }
 }
 
