@@ -27,6 +27,6 @@
         <p>Ny användare? <a href="./register.php" target="_self">Registrera dig gratis</a></p>
       </div>
     </form>
-  </div> <!-- This closes the div with the class "content" -->
-</div> <!-- This closes the div with the class "background-container" -->
+  </div>
+</div>
 <?php include_once "footer.php"; ?>

@@ -1,6 +1,7 @@
 <?php
 include_once "./functions.php";
 
+// Check if user has pressed the upload button.
 if (isset($_POST["upload"])) {
 
   $target_folder = "./userpics/";

@@ -12,7 +12,7 @@ html, body {
 }
 
 h1 {
-  font-family: 'Lobster Two', cursive;
+  font-family: "Lobster Two", cursive;
   font-size: 7rem;
   font-style: italic;
   font-weight: 400;
@@ -20,7 +20,7 @@ h1 {
 }
 
 h2, p, input, label, .button, .upload-file {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 400;
 }
 
@@ -117,7 +117,7 @@ START OF MAIN CONTENT
 
 .error-message {
   color: #db5461;
-  font-family: 'Lobster Two', cursive;
+  font-family: "Lobster Two", cursive;
   font-style: italic;
 }
 
@@ -208,7 +208,7 @@ START OF DASHBOARD PAGE
 .welcome-text > p {
   color: #FEFEFF;
   font-size: 2rem;
-  font-family: 'Lobster Two', cursive;
+  font-family: "Lobster Two", cursive;
   font-weight: 400;
   font-style: italic;
   margin: 0;
@@ -236,7 +236,7 @@ START OF DASHBOARD PAGE
 .placeholder-selfie > p {
   box-sizing: border-box;
   color: #fff;
-  font-family: 'Lobster Two', sans-serif;
+  font-family: "Lobster Two", sans-serif;
   font-size: 3rem;
   font-style: italic;
   margin-top: 2.5rem;
@@ -282,7 +282,7 @@ label.upload-file::before {
 }
 
 .choose-file:valid + label.upload-file::before {
-  content: "1 fil vald";
+  /*content: "1 fil vald";*/
 }
 
 .choose-file ~ button[type="submit"] {

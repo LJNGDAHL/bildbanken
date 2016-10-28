@@ -4,7 +4,7 @@
   include_once "./config.php";
   include_once "./session.php";
   include_once "./peptalk.php";
-  include_once './functions.php';
+  include_once "./functions.php";
   include_once "./file_upload.php";
 
   // Print content on dashboard.php if there is a current session active.
@@ -35,7 +35,6 @@
       if (!empty($db_error)) {
         echo $db_error_message;
       }
-
       if (isset($file_error)): ?>
         <p class="upload-message"><?php echo $file_error; ?></p>
       <?php endif;

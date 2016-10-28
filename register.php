@@ -65,7 +65,7 @@
 
             storeUserInSession($id, $given_name, $family_name, $email);
 
-            // Redirect user to dashboard.php after registration is completed.
+            // Redirect user to dashboard.php.
             header("Location: dashboard.php");
 
           } //  This close the else statement that adds a new user to the database.

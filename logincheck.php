@@ -22,9 +22,9 @@
         $hashed_password = hashPassword($user_password);
 
         $stmt = $conn->stmt_init();
-        $checkEmail = "SELECT * FROM users WHERE email = '{$user_email}'";
+        $query = "SELECT * FROM users WHERE email = '{$user_email}'";
 
-        if ($stmt->prepare($checkEmail)) {
+        if ($stmt->prepare($query)) {
 
           $stmt->execute();
           $stmt->bind_result($id, $given_name, $family_name, $email, $password, $selfie);
@@ -42,7 +42,7 @@
           }
 
         } else {
-          // Prints error message about $stmt.
+          // Prints error message.
           echo mysqli_stmt_error($stmt);
         }
       }
