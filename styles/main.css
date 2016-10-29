@@ -282,7 +282,7 @@ label.upload-file::before {
 }
 
 .choose-file:valid + label.upload-file::before {
-  /*content: "1 fil vald";*/
+  content: "1 fil vald";
 }
 
 .choose-file ~ button[type="submit"] {
